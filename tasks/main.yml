@@ -1,0 +1,20 @@
+---
+
+- name: Calculate disk performance
+  shell: dd if=/dev/zero of=/tmp/spa_test.img bs=1G count=1 oflag=dsync 2>&1
+  throttle: 1  # this is a bit arbitrary but probably sane as to not cripple whatever we're testing too much
+  register: disk_performance_result
+
+- name: Calculate the run time
+  set_fact:
+    spa_disk_run_time: "{{ ( ( (disk_performance_result.end[:-7] | to_datetime) -
+    (disk_performance_result.start[:-7] | to_datetime) ).total_seconds() | int ) }}"
+
+- name: Make sure disks are performant
+  assert:
+    that: (spa_disk_run_time | int) <= spa_disk_run_time_assertion  # value in MB/s
+
+- name: Delete the stray test file
+  file:
+    path: /tmp/spa_test.img
+    state: absent

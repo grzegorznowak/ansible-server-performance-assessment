@@ -1,0 +1,5 @@
+---
+
+# there's no actual convergence for this role, have a look at verify.yml instaed
+- name: Converge (nothing really)
+  hosts: all

@@ -1,0 +1,29 @@
+---
+
+- name: Verify
+  hosts: all
+  become: true
+
+  # there isn't much to verify with this role, as it's forged to verify stuff only and not change any state
+  # but let's see if we can make it pass/error out with some extreme values
+
+  tasks:
+
+    - name: include role
+      block:
+        - name: Include assertions and expect them to PASS
+          include_role:
+            name: ansible-server-performance-assessment
+          vars:
+            spa_disk_run_time_assertion: 700  # this should pass even on a VERY slow hardware
+
+    - name: include role
+      block:
+        - name: Include assertions and expect them to FAIL
+          include_role:
+            name: ansible-server-performance-assessment
+          vars:
+            spa_disk_run_time_assertion: 0  # this will never really pass (unless we can copy 1g in less than 0.5 s)
+      rescue:
+        - debug:
+            msg: "All ok, we expected this to fail"

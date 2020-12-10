@@ -1,5 +1,5 @@
 # Ansible Server Performance Assessment (role)
-Make a sense of your machine/container/droplet/linode performance with ansible.
+Make sense of your machine/container/droplet/linode performance with ansible.
 
 When ran on a fresh host, it will give you a sense of what the baseline performance is and does it meet your goals.
 

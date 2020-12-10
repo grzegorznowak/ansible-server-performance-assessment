@@ -36,8 +36,10 @@ As such the final result might be somewhat more of a heuristic than an actual ay
 ```shell script
 ./bootstrap_testing.sh
 source testing_env/bin/activate
-molecule test -s lxd
+read -s PASS && ANSIBLE_BECOME_PASS=$PASS molecule verify -s lxd
 ```
+
+it will go silent so that you may provide your sudo pass. Do it, hit enter and it will carry on
 
 ### Usage
 

@@ -6,6 +6,8 @@
 
   # there isn't much to verify with this role, as it's forged to verify stuff only and not change any state
   # but let's see if we can make it pass/error out with some extreme values
+  vars:
+    ansible_become_pass: "{{ lookup('env','ANSIBLE_BECOME_PASS') }}"
 
   tasks:
 
@@ -15,7 +17,8 @@
           include_role:
             name: ansible-server-performance-assessment
           vars:
-            spa_disk_run_time_assertion: 700  # this should pass even on a VERY slow hardware
+            spa_disk_write_run_time_assertion: 700  # this should pass even on a VERY slow hardware
+            spa_disk_read_run_time_assertion: 700
 
     - name: include role
       block:
@@ -23,7 +26,9 @@
           include_role:
             name: ansible-server-performance-assessment
           vars:
-            spa_disk_run_time_assertion: 0  # this will never really pass (unless we can copy 1g in less than 0.5 s)
+            # this will never really pass (unless we can copy 1g in less than 0.5 s)
+            spa_disk_write_run_time_assertion: 0
+            spa_disk_read_run_time_assertion: 0
       rescue:
         - debug:
             msg: "All ok, we expected this to fail"

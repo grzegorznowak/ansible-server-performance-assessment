@@ -2,4 +2,10 @@
 
 # sample values here are, well just samples, you definitely should adjust to your taste
 
-spa_disk_run_time_assertion: 30  # seconds it can take for 1G to be written, this is quite a conservative amount
+# seconds it can take for 1G to be written, this is quite a conservative amount and relates to about 250MB/s,
+# which is quite puny for ssd drives these days
+spa_disk_write_run_time_assertion: 4
+
+# Relates to about 512MB/s read speed with block size of 64K.
+# Pretty conservative still, given modern hardware's capabilities
+spa_disk_read_run_time_assertion: 2

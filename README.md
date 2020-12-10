@@ -52,14 +52,19 @@ augment your `playbook.yml` with this role, and adjust parameters to whatever th
   hosts: all
   become: true
 
-  # there isn't much to verify with this role, as it's forged to verify stuff only and not change any state
-  # but let's see if we can make it pass/error out with some extreme values
 
   roles:
     - role: ansible-server-performance-assessment
       spa_disk_write_run_time_assertion: [in seconds, adjust to taste]
       spa_disk_read_run_time_assertion: [in seconds, adjust to taste]
+
+  tags:
+    - benchmark
+    - never
 ```
+
+The sample above will happily run only when `--tags=benchmark` parameter is given to ansible.
+
       
 
 

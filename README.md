@@ -57,8 +57,8 @@ augment your `playbook.yml` with this role, and adjust parameters to whatever th
 
   roles:
     - role: ansible-server-performance-assessment
-      spa_disk_write_run_time_assertion: [adjust to taste]
-      spa_disk_read_run_time_assertion: [adjust to taste]
+      spa_disk_write_run_time_assertion: [in seconds, adjust to taste]
+      spa_disk_read_run_time_assertion: [in seconds, adjust to taste]
 ```
       
 

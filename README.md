@@ -31,6 +31,36 @@ The plan is to have a set of provisioning-blocking assertions over machine's per
 As such the final result might be somewhat more of a heuristic than an actual ay/nay answer, but it *should* be perfectly suitable as a test canary.
 
 
+### Testing
+
+```shell script
+./bootstrap_testing.sh
+source testing_env/bin/activate
+molecule test -s lxd
+```
+
+### Usage
+
+#### when cloned from git rep
+
+augment your `playbook.yml` with this role, and adjust parameters to whatever the acceptable performance is
+
+```yaml
+- name: Verify
+  hosts: all
+  become: true
+
+  # there isn't much to verify with this role, as it's forged to verify stuff only and not change any state
+  # but let's see if we can make it pass/error out with some extreme values
+
+  roles:
+    - role: ansible-server-performance-assessment
+      spa_disk_write_run_time_assertion: [adjust to taste]
+      spa_disk_read_run_time_assertion: [adjust to taste]
+```
+      
+
+
 
 
 

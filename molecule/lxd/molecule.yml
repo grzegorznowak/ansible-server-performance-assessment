@@ -12,8 +12,6 @@ platforms:
     image: ubuntu/bionic/amd64
   - name: ansible-server-performance-assesment-test-16-04
     image: ubuntu/xenial/amd64
-  - name: ansible-server-performance-assesment-test-14-04
-    image: ubuntu/trusty/amd64
   - name: ansible-server-performance-assesment-test-buster
     image: debian/buster/amd64
   - name: ansible-server-performance-assesment-test-stretch

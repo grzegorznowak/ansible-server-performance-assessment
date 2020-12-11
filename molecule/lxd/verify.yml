@@ -25,6 +25,8 @@
             spa_downlink_assertion: 10  # Value in Mb/s (BITS per second)
             spa_uplink_assertion: 1  # Value in Mb/s (BITS per second)
 
+            spa_memory_speed_assertion: 100  # Value in MB/s (BYTES per second)
+
     - name: include role
       block:
         - name: Include assertions and expect them to FAIL
@@ -34,10 +36,12 @@
             # Those should never really pass unless it's 2050; but excluding my city,
             # where at that point we might be getting first broadband cable... (yay)
             spa_disk_write_run_time_assertion: 0  # value in seconds
-            spa_disk_read_run_time_assertion: 0 # value in seconds
+            spa_disk_read_run_time_assertion: 0  # value in seconds
 
             spa_downlink_assertion: 2000  # Value in Mb/s (BITS per second)
             spa_uplink_assertion: 2000  # Value in Mb/s (BITS per second)
+
+            spa_memory_speed_assertion: 1000000  # Value in MB/s (BYTES per second)
 
       rescue:
         - debug:

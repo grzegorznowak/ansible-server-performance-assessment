@@ -1,0 +1,41 @@
+---
+
+- name: wrap sysbench installation (issues on buster)
+  block:
+    - name: sysbench via apt
+      apt:
+        pkg:
+          - sysbench
+        state: present
+        update-cache: true
+        install_recommends: false
+        cache_valid_time: 3600
+
+  rescue:
+    - name: add buster-backports
+      apt_repository:
+        repo: deb http://deb.debian.org/debian buster-backports main
+        state: present
+
+    - name: sysbench via apt
+      apt:
+        pkg:
+          - sysbench
+        state: present
+        update-cache: false
+        install_recommends: false
+        cache_valid_time: 3600
+
+- name: capture speedtest-cli benchmark
+  shell: "sysbench --test=memory --memory-block-size=64K --memory-total-size=10G run |
+  grep 'transferred (' | awk '{print $4}'"
+  throttle: 1  # this is a bit arbitrary but probably sane as to not cripple whatever we're testing too much
+  register: spa_memory_result
+
+- name: get memory speed
+  set_fact:
+    spa_memory_speed: "{{ spa_memory_result.stdout[1:] }}"
+
+- name: assess downlink speed
+  assert:
+    that: (spa_memory_speed | int) > spa_memory_speed_assertion

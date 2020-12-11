@@ -20,7 +20,7 @@
       shell: "sync && echo 3 > /proc/sys/vm/drop_caches"
 
   rescue:
-    - name: Flush the cache
+    - name: Flush the cache (try delegating to the localhost in case we were in a container)
       shell: "sync && echo 3 > /proc/sys/vm/drop_caches"
       delegate_to: localhost
       become: true

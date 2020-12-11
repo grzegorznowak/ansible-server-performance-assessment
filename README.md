@@ -66,7 +66,11 @@ augment your `playbook.yml` with this role, and adjust parameters to whatever th
 The sample above will happily run only when `--tags=benchmark` parameter is given to ansible.
 
       
+### Limitations
 
+The role isn't going to work too well or at all on non `en` locales, since some of the benchmark software's
+parsing is being done using specific phrases in their outputs. That could be lifted with second round of 
+development by someone who knows their awks and regexps better than I do.
 
 
 

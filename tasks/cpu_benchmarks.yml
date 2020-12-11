@@ -1,0 +1,11 @@
+---
+
+- name: capture speedtest-cli benchmark
+  shell: "sysbench --test=cpu --cpu-max-prime=20000 run |
+  grep 'events per second' | awk '{print $4}'"
+  throttle: 1  # this is a bit arbitrary but probably sane as to not cripple whatever we're testing too much
+  register: spa_cpu_result
+
+- name: assess CPU speed
+  assert:
+    that: (spa_cpu_result.stdout | int) > spa_cpu_event_per_second_assertion

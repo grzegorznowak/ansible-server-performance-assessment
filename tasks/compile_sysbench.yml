@@ -1,0 +1,58 @@
+---
+
+- name: Sysbench Compilation | make deps
+  apt:
+    pkg:
+      - make
+      - automake
+      - libtool
+      - pkg-config
+      - libaio-dev
+    state: present
+    update-cache: true
+    install_recommends: false
+    cache_valid_time: 3600
+
+- name: Sysbench Compilation | sources
+  get_url:
+    url: https://github.com/akopytov/sysbench/archive/1.0.20.tar.gz
+    dest: /usr/lib/sysbench_1.0.20.tar.gz
+# some day github, some day....
+#    checksum: sha256:aaaabbbbcccc
+
+- name: Sysbench Compilation | create the unarchive task's target
+  file:
+    path: /usr/lib/sysbench_1.0.2
+    state: directory
+    mode: '0755'
+
+- name: Sysbench Compilation | unpack sources
+  unarchive:
+    src: /usr/lib/sysbench_1.0.20.tar.gz
+    remote_src: true
+    dest: /usr/lib/sysbench_1.0.2
+    creates: /usr/lib/sysbench_1.0.2/sysbench-1.0.20
+
+- name: Sysbench Compilation | autogen.sh
+  shell: ./autogen.sh
+  args:
+    chdir: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/
+    creates: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/configure
+
+- name: Sysbench Compilation | configure
+  shell: ./configure --without-mysql
+  args:
+    chdir: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/
+    creates: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/config.log
+
+- name: Sysbench Compilation | make
+  shell: make -j
+  args:
+    chdir: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/
+    creates: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/src/sysbench
+
+- name: Sysbench Compilation | make install
+  shell: make install
+  args:
+    chdir: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/
+    creates: /usr/local/bin/sysbench

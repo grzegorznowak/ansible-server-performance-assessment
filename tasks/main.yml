@@ -1,5 +1,7 @@
 ---
 
-- include: memory_benchmarks.yml
-- include: network_benchmarks.yml
-- include: disk_benchmarks.yml
+#- include: disk_benchmarks.yml  # doesn't use sysbench
+- include: compile_sysbench.yml  # and now we do use sysbench
+#- include: memory_benchmarks.yml
+#- include: network_benchmarks.yml
+- include: cpu_benchmarks.yml

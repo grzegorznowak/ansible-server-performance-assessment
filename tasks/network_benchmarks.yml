@@ -1,0 +1,51 @@
+---
+
+- name: block-wrap speedtest-cli installation
+  block:
+    - name: try to install speedtest-cli directly
+      apt:
+        pkg:
+          - speedtest-cli
+        state: present
+        update-cache: yes
+        install_recommends: no
+        cache_valid_time: 3600
+
+  rescue:
+    - name: need to install speedtest-cli's python package
+      apt:
+        pkg:
+          - python-pip
+          - python-setuptools
+          - virtualenv
+        state: present
+        update-cache: yes
+        install_recommends: no
+        cache_valid_time: 3600
+
+    - name: install speedtest-cli via pip
+      pip:
+        virtualenv: "/tmp/spa_env"
+        virtualenv_python: python2
+        name: speedtest-cli
+
+
+- name: capture speedtest-cli benchmark
+  shell: "speedtest-cli --simple > {{ spa_speedtest_tmp_file }}"
+  throttle: 1  # this is a bit arbitrary but probably sane as to not cripple whatever we're testing too much
+
+- name: get downlink speed
+  shell: "cat '{{ spa_speedtest_tmp_file }}'  | awk '{print $2}'  | sed -n '2 p'"
+  register: spa_downlink_result
+
+- name: get uplink speed
+  shell: "cat '{{ spa_speedtest_tmp_file }}'  | awk '{print $2}'  | sed -n '2 p'"
+  register: spa_uplink_result
+
+- name: assess downlink speed
+  assert:
+    that: (spa_downlink_result.stdout | int) > spa_downlink_assertion
+
+- name: assess uplink speed
+  assert:
+    that: (spa_uplink_result.stdout | int) > spa_uplink_assertion

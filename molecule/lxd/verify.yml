@@ -4,8 +4,8 @@
   hosts: all
   become: true
 
-  # there isn't much to verify with this role, as it's forged to verify stuff only and not change any state
-  # but let's see if we can make it pass/error out with some extreme values
+  # but let's see if we can make it pass/fail with some extreme values
+
   vars:
     ansible_become_pass: "{{ lookup('env','ANSIBLE_BECOME_PASS') }}"
 
@@ -17,8 +17,13 @@
           include_role:
             name: ansible-server-performance-assessment
           vars:
-            spa_disk_write_run_time_assertion: 700  # this should pass even on a VERY slow hardware
-            spa_disk_read_run_time_assertion: 700
+            # those should always pass really, we've invented time machine if they don't (and it's ca. early 2000)
+
+            spa_disk_write_run_time_assertion: 700  # value in seconds
+            spa_disk_read_run_time_assertion: 700  # value in seconds
+
+            spa_downlink_assertion: 10  # Value in Mb/s (BITS per second)
+            spa_uplink_assertion: 1  # Value in Mb/s (BITS per second)
 
     - name: include role
       block:
@@ -26,9 +31,14 @@
           include_role:
             name: ansible-server-performance-assessment
           vars:
-            # this will never really pass (unless we can copy 1g in less than 0.5 s)
-            spa_disk_write_run_time_assertion: 0
-            spa_disk_read_run_time_assertion: 0
+            # Those should never really pass unless it's 2050; but excluding my city,
+            # where at that point we might be getting first broadband cable... (yay)
+            spa_disk_write_run_time_assertion: 0  # value in seconds
+            spa_disk_read_run_time_assertion: 0 # value in seconds
+
+            spa_downlink_assertion: 2000  # Value in Mb/s (BITS per second)
+            spa_uplink_assertion: 2000  # Value in Mb/s (BITS per second)
+
       rescue:
         - debug:
             msg: "All ok, we expected this to fail"

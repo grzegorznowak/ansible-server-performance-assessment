@@ -13,3 +13,5 @@
 - name: assess memory speed
   assert:
     that: (spa_memory_speed | int) > spa_memory_speed_assertion
+    fail_msg: "Memory speed {{ (spa_memory_speed | int) }}MB/s
+    is lesser than {{ spa_memory_speed_assertion }}MB/s"

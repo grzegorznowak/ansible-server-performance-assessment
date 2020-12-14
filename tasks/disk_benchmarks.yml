@@ -13,6 +13,8 @@
 - name: Make sure disks are performant
   assert:
     that: (spa_disk_write_run_time | int) <= spa_disk_write_run_time_assertion  # value in MB/s
+    fail_msg: "Disk Write time {{ (spa_disk_write_run_time | int) }}s
+    is greater than {{ spa_disk_write_run_time_assertion }}s"
 
 - name: Wrap cache clearing (only really needed when testing the role in containers)
   block:
@@ -38,6 +40,8 @@
 - name: Make sure disks are performant
   assert:
     that: (spa_disk_read_run_time | int) <= spa_disk_read_run_time_assertion  # value in MB/s
+    fail_msg: "Disk Read time {{ (spa_disk_read_run_time | int) }}s
+    is greater than {{ spa_disk_read_run_time_assertion }}s"
 
 - name: Delete the stray test file
   file:

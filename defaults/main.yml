@@ -3,19 +3,18 @@
 # sample values here are, well just samples, you definitely should adjust to your taste
 
 # DISK BENCH
-# seconds it can take for 1G to be written, this is quite a conservative amount and relates to about 250MB/s,
-# which is quite puny for ssd drives these days
-spa_disk_write_run_time_assertion: 4
+# seconds it can take for 1G to be written, this is quite a conservative for ssd drives these days
+spa_disk_write_run_time_assertion: 8
 
 # Relates to about 512MB/s read speed with block size of 64K.
 # Pretty conservative still, given modern hardware's capabilities
-spa_disk_read_run_time_assertion: 2
+spa_disk_read_run_time_assertion: 4
 
 # NETWORK BENCH
 # thanks speedtest.net! I never thought I'd use you in production, but here we are.
 spa_speedtest_tmp_file: /tmp/spa_speedtest.out
-spa_downlink_assertion: 100  # Value in Mb/s (BITS per second)
-spa_uplink_assertion: 100  # Value in Mb/s (BITS per second)
+spa_downlink_assertion: 1  # Value in Mb/s (BITS per second)
+spa_uplink_assertion: 1  # Value in Mb/s (BITS per second)
 
 # MEM BENCH
 spa_memory_speed_assertion: 10000  # value in MB/s (BYTES per second)

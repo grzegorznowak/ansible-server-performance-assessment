@@ -14,3 +14,11 @@
            || (yum update && yum install python-minimal))
       changed_when: false
       ignore_errors: true
+
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist
+        update_cache: true
+
+    - name: Unconditionally reboot the machine with all defaults
+      reboot:

@@ -22,7 +22,7 @@
             spa_disk_write_run_time_assertion: 700  # value in seconds
             spa_disk_read_run_time_assertion: 700  # value in seconds
 
-            spa_downlink_assertion: 10  # Value in Mb/s (BITS per second)
+            spa_downlink_assertion: 1  # Value in Mb/s (BITS per second)
             spa_uplink_assertion: 1  # Value in Mb/s (BITS per second)
 
             spa_memory_speed_assertion: 100  # Value in MB/s (BYTES per second)

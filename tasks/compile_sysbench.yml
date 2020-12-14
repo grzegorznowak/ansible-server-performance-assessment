@@ -13,12 +13,10 @@
     install_recommends: false
     cache_valid_time: 3600
 
-- name: Sysbench Compilation | sources
-  get_url:
-    url: https://github.com/akopytov/sysbench/archive/1.0.20.tar.gz
+- name: Sysbench Compilation | copy sources from local store
+  copy:
+    src: sysbench-1.0.20.tar.gz
     dest: /usr/lib/sysbench_1.0.20.tar.gz
-# some day github, some day....
-#    checksum: sha256:aaaabbbbcccc
 
 - name: Sysbench Compilation | create the unarchive task's target
   file:

@@ -1,16 +1,38 @@
 ---
 
-- name: speedtest-cli via apt
-  apt:
-    pkg:
-      - speedtest-cli
-    state: present
-    update-cache: true
-    install_recommends: false
-    cache_valid_time: 3600
+- name: wrap virtualenv installation
+  block:
+    - name: speedtest-cli | prepare pip
+      apt:
+        pkg:
+          - python-pip
+          - python-setuptools
+          - virtualenv
+        state: present
+        update-cache: true
+        install_recommends: false
+        cache_valid_time: 3600
+  rescue:
+    - name: speedtest-cli | prepare pip rescued
+      apt:
+        pkg:
+          - python3-pip
+          - python3-setuptools
+          - virtualenv
+        state: present
+        update-cache: true
+        install_recommends: false
+        cache_valid_time: 3600
+
+- name: speedtest-cli | install speedtest-cli via pip
+  pip:
+    virtualenv: "/tmp/spa_env"
+    virtualenv_python: python3
+    name: speedtest-cli
+
 
 - name: capture speedtest-cli benchmark
-  shell: "speedtest-cli --simple > {{ spa_speedtest_tmp_file }}"
+  shell: ". /tmp/spa_env/bin/activate && speedtest-cli --simple > {{ spa_speedtest_tmp_file }}"
   throttle: 1  # this is a bit arbitrary but probably sane as to not cripple whatever we're testing too much
 
 - name: get downlink speed

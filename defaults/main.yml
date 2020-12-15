@@ -6,7 +6,6 @@
 # seconds it can take for 1G to be written, this is quite a conservative for ssd drives these days
 spa_disk_write_run_time_assertion: 8
 
-# Relates to about 512MB/s read speed with block size of 64K.
 # Pretty conservative still, given modern hardware's capabilities
 spa_disk_read_run_time_assertion: 4
 

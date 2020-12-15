@@ -57,6 +57,19 @@ augment your `playbook.yml` with this role, and adjust parameters to whatever th
     - role: ansible-server-performance-assessment
       spa_disk_write_run_time_assertion: [in seconds, adjust to taste]
       spa_disk_read_run_time_assertion: [in seconds, adjust to taste]
+    
+      # NETWORK BENCH
+      # thanks speedtest.net! I never thought I'd use you in production, but here we are.
+      spa_speedtest_tmp_file: /tmp/spa_speedtest.out
+      spa_downlink_assertion: 100  # Value in Mb/s (BITS per second)
+      spa_uplink_assertion: 100  # Value in Mb/s (BITS per second)
+        
+      # MEM BENCH
+      spa_memory_speed_assertion: 10000  # Value in MB/s (BYTES per second)
+        
+      # CPU BENCH
+      spa_cpu_event_per_second_assertion: 300  # A number of events per second as reported by Sysbench
+
 
   tags:
     - benchmark

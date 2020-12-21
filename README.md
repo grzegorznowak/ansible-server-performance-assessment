@@ -55,8 +55,8 @@ augment your `playbook.yml` with this role, and adjust parameters to whatever th
 
   roles:
     - role: ansible-server-performance-assessment
-      spa_disk_write_MB_per_s_assertion: [in MB/s, adjust to taste]
-      spa_disk_read_MB_per_s_assertion: [in MB/s, adjust to taste]
+      spa_disk_write_MB_per_s_assertion: 300 [in MB/s, adjust to taste]
+      spa_disk_read_MB_per_s_assertion: 300 [in MB/s, adjust to taste]
     
       # NETWORK BENCH
       # thanks speedtest.net! I never thought I'd use you in production, but here we are.

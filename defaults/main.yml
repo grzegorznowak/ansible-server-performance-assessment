@@ -3,11 +3,10 @@
 # sample values here are, well just samples, you definitely should adjust to your taste
 
 # DISK BENCH
-# seconds it can take for 1G to be written, this is quite a conservative for ssd drives these days
-spa_disk_write_run_time_assertion: 8
+# expected MB per second (rounded)
+spa_disk_write_MB_per_s_assertion: 300
+spa_disk_read_MB_per_s_assertion: 300
 
-# Pretty conservative still, given modern hardware's capabilities
-spa_disk_read_run_time_assertion: 4
 
 # NETWORK BENCH
 # thanks speedtest.net! I never thought I'd use you in production, but here we are.

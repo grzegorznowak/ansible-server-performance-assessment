@@ -27,7 +27,7 @@ The role was created to allow 2 way checks.
 ### Low level premise
 
 
-The plan is to have a set of provisioning-blocking assertions over machine's performance capabilities, using little to none additional software.
+The plan is to have a set of provisioning-blocking assertions over machine's performance capabilities, using ~~little to none~~ minimum additional software.
 As such the final result might be somewhat more of a heuristic than an actual ay/nay answer, but it *should* be perfectly suitable as a test canary.
 
 
@@ -45,7 +45,7 @@ it will go silent so that you may provide your sudo pass. Do it, hit enter and i
 
 #### when cloned from git rep
 
-augment your `playbook.yml` with this role, and adjust parameters to whatever the acceptable performance is
+augment your `playbook.yml` with this role, and adjust parameters to whatever the acceptable baseline performance is
 
 ```yaml
 - name: Verify
@@ -55,8 +55,8 @@ augment your `playbook.yml` with this role, and adjust parameters to whatever th
 
   roles:
     - role: ansible-server-performance-assessment
-      spa_disk_write_run_time_assertion: [in seconds, adjust to taste]
-      spa_disk_read_run_time_assertion: [in seconds, adjust to taste]
+      spa_disk_write_MB_per_s_assertion: [in MB/s, adjust to taste]
+      spa_disk_read_MB_per_s_assertion: [in MB/s, adjust to taste]
     
       # NETWORK BENCH
       # thanks speedtest.net! I never thought I'd use you in production, but here we are.
@@ -76,7 +76,8 @@ augment your `playbook.yml` with this role, and adjust parameters to whatever th
     - never
 ```
 
-The sample above will happily run only when `--tags=benchmark` parameter is given to ansible.
+The sample above will happily run only when `--tags=benchmark` parameter is given to ansible 
+(for easier merger with existing playbook files)
 
       
 ### Limitations

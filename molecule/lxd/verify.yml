@@ -21,6 +21,8 @@
 
             spa_disk_write_run_time_assertion: 700  # value in seconds
             spa_disk_read_run_time_assertion: 700  # value in seconds
+            spa_disk_write_MB_per_s_assertion: 10  # value in MB/s
+            spa_disk_read_MB_per_s_assertion: 10  # value in MB/s
 
             spa_downlink_assertion: 1  # Value in Mb/s (BITS per second)
             spa_uplink_assertion: 1  # Value in Mb/s (BITS per second)
@@ -38,6 +40,8 @@
             # where at that point we might be getting first broadband cable... (yay)
             spa_disk_write_run_time_assertion: 0  # value in seconds
             spa_disk_read_run_time_assertion: 0  # value in seconds
+            spa_disk_write_MB_per_s_assertion: 20000  # value in MB/s
+            spa_disk_read_MB_per_s_assertion: 20000  # value in MB/s
 
             spa_downlink_assertion: 2000  # Value in Mb/s (BITS per second)
             spa_uplink_assertion: 2000  # Value in Mb/s (BITS per second)

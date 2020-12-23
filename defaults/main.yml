@@ -4,8 +4,8 @@
 
 # DISK BENCH
 # expected MB per second (rounded)
-spa_disk_write_MB_per_s_assertion: 300
-spa_disk_read_MB_per_s_assertion: 300
+spa_disk_write_MB_per_s_assertion: 300  # MB/s
+spa_disk_read_MB_per_s_assertion: 300  # MB/s
 
 
 # NETWORK BENCH

@@ -15,6 +15,7 @@
 
 - name: Sysbench Compilation | copy sources from local store
   copy:
+    mode: '0755'
     src: sysbench-1.0.20.tar.gz
     dest: /usr/lib/sysbench_1.0.20.tar.gz
 
@@ -32,25 +33,25 @@
     creates: /usr/lib/sysbench_1.0.2/sysbench-1.0.20
 
 - name: Sysbench Compilation | autogen.sh
-  shell: ./autogen.sh
+  command: ./autogen.sh
   args:
     chdir: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/
     creates: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/configure
 
 - name: Sysbench Compilation | configure
-  shell: ./configure --without-mysql
+  command: ./configure --without-mysql
   args:
     chdir: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/
     creates: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/config.log
 
 - name: Sysbench Compilation | make
-  shell: make -j
+  command: make -j
   args:
     chdir: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/
     creates: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/src/sysbench
 
 - name: Sysbench Compilation | make install
-  shell: make install
+  command: make install
   args:
     chdir: /usr/lib/sysbench_1.0.2/sysbench-1.0.20/
     creates: /usr/local/bin/sysbench

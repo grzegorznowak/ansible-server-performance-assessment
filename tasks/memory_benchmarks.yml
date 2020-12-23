@@ -5,6 +5,7 @@
   grep 'transferred (' | awk '{print $4}'"
   throttle: 1  # this is a bit arbitrary but probably sane as to not cripple whatever we're testing too much
   register: spa_memory_result
+  changed_when: false
 
 - name: get memory speed
   set_fact:

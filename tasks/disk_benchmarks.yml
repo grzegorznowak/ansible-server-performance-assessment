@@ -1,9 +1,10 @@
 ---
 
 - name: Benchmark the disk WRITE performance
-  shell: dd if=/dev/zero of=/tmp/spa_test.img bs=1G count=1 oflag=dsync 2>&1 | sed -n '3 p' |  awk '{print $10 $11}'
+  shell: "dd if=/dev/zero of=/tmp/spa_test.img bs=1G count=1 oflag=dsync 2>&1 | sed -n '3 p' |  awk '{print $10 $11}'"
   throttle: 1  # this is a bit arbitrary but probably sane as to not cripple whatever we're testing too much
   register: disk_write_performance_result
+  changed_when: false
 
 - name: Calculate the WRITE speed
   set_fact:
@@ -11,7 +12,7 @@
 
 - name: Make sure disk WRITEs are performant
   assert:
-    that: (spa_disk_write_MB_per_s | int) > spa_disk_write_MB_per_s_assertion  # value in MB/s
+    that: (spa_disk_write_MB_per_s | int) >= spa_disk_write_MB_per_s_assertion  # value in MB/s
     fail_msg: "Disk WRITE speed {{ (spa_disk_write_MB_per_s | int) }} MB/s
     is lower than asserted {{ spa_disk_write_MB_per_s_assertion }} MB/s"
 
@@ -27,9 +28,10 @@
       become: true
 
 - name: Benchmark the disk READ performance
-  shell: dd if=/tmp/spa_test.img of=/dev/zero bs=64K 2>&1 | sed -n '3 p' |  awk '{print $10 $11}'
+  shell: "dd if=/tmp/spa_test.img of=/dev/zero bs=64K 2>&1 | sed -n '3 p' |  awk '{print $10 $11}'"
   throttle: 1  # this is a bit arbitrary but probably sane as to not cripple whatever we're testing too much
   register: disk_read_performance_result
+  changed_when: false
 
 - name: Calculate the READ performance
   set_fact:
@@ -37,7 +39,7 @@
 
 - name: Make sure disks READs are performant
   assert:
-    that: (spa_disk_read_MB_per_s | int) > spa_disk_read_MB_per_s_assertion  # value in MB/s
+    that: (spa_disk_read_MB_per_s | int) >= spa_disk_read_MB_per_s_assertion  # value in MB/s
     fail_msg: "Disk READ speed {{ (spa_disk_read_MB_per_s | int) }} MB/s
     is lower than asserted {{ spa_disk_read_MB_per_s_assertion }} MB/s"
 

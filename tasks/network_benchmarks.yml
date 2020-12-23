@@ -34,14 +34,17 @@
 - name: capture speedtest-cli benchmark
   shell: ". /tmp/spa_env/bin/activate && speedtest-cli --simple > {{ spa_speedtest_tmp_file }}"
   throttle: 1  # this is a bit arbitrary but probably sane as to not cripple whatever we're testing too much
+  changed_when: false
 
 - name: get downlink speed
   shell: "cat '{{ spa_speedtest_tmp_file }}'  | awk '{print $2}'  | sed -n '2 p'"
   register: spa_downlink_result
+  changed_when: false
 
 - name: get uplink speed
   shell: "cat '{{ spa_speedtest_tmp_file }}'  | awk '{print $2}'  | sed -n '2 p'"
   register: spa_uplink_result
+  changed_when: false
 
 - name: assess downlink speed
   assert:

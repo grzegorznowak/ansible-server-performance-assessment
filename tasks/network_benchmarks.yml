@@ -48,12 +48,12 @@
 
 - name: assess downlink speed
   assert:
-    that: (spa_downlink_result.stdout | int) > spa_downlink_assertion
+    that: (spa_downlink_result.stdout | int) >= spa_downlink_assertion
     fail_msg: "WAN down link speed {{ (spa_downlink_result.stdout | int) }}Mb/s
     is lesser than {{ spa_downlink_assertion }}Mb/s"
 
 - name: assess uplink speed
   assert:
-    that: (spa_uplink_result.stdout | int) > spa_uplink_assertion
+    that: (spa_uplink_result.stdout | int) >= spa_uplink_assertion
     fail_msg: "WAN up link speed {{ (spa_uplink_result.stdout | int) }}Mb/s
         is lesser than {{ spa_uplink_assertion }}Mb/s"

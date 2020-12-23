@@ -9,6 +9,6 @@
 
 - name: assess CPU speed
   assert:
-    that: (spa_cpu_result.stdout | int) > spa_cpu_event_per_second_assertion
+    that: (spa_cpu_result.stdout | int) >= spa_cpu_event_per_second_assertion
     fail_msg: "CPU events/s {{ (spa_cpu_result.stdout | int) }}
     is lesser than {{ spa_cpu_event_per_second_assertion }}"

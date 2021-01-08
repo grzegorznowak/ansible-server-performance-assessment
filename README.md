@@ -3,7 +3,7 @@ Make sense of your machine/container/droplet/linode performance with ansible.
 
 When ran on a fresh host, it will give you a taste of what the baseline performance is and does it meet your goals.
 
-Note the project is in it's very early days, and it's only solving immediate requirements as met by the ops team going forward.
+Note the project is only solving immediate requirements as met by our ops team going forward, but should be enough for many cases generally.
 Will be happy to expand onto more systems and cases with your help.
 
 ### The catalyst
